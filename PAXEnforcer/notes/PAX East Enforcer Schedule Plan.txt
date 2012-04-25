@@ -8,3 +8,10 @@ PAX East Enforcer Schedule Plan
 5.)  Add/Auto-Add Teams
 6.)  Calculations for "happiness"
 
+
+Currently, we assume that each enforcer fills out the entire list of preferences.  
+This is not always the case though.  Possible ways to handle it... dump department to fill in the 
+nulls.  Or allow filling in a department multiple times (not good because this allows for people to
+spam one department). 
+
+Need to consider possibility of removing an enforcer from a department before adding.

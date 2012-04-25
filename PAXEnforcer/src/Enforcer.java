@@ -1,15 +1,29 @@
 import java.util.StringTokenizer;
 
-
-public class Enforcer {
+/*
+ * Needs to handle:
+ * 
+ * Handle - Done
+ * Time Preferences - Need to figure out better way of setting/getting data since this less complex
+ * Department Preferences - Done
+ * Current Department
+ * Current Shift
+ * Happiness Level based upon Department/ Time
+ * Output method
+ */
+public class Enforcer extends Object {
 
 	private String handle;
 	private String[] depPref;
+	private int[] timePref;
 	private Department myDepartment;
 	private int depPrefNum = 5;
+	private int shifts = 3;
+	public int myShift = 0;
 	
 	public Enforcer()
 	{
+		setTimePref(new int[shifts]);
 		setDepPref(new String[depPrefNum]);
 		setHandle ("Enforcer");
 		myDepartment = null;
@@ -26,20 +40,34 @@ public class Enforcer {
 		}
 	}
 	
+	//ToString output of Enforcer Data.  Currently paragraph style for testing/readability...
+	//Will need to later convert into outputfriendly format or make a new method for output friendly format (probably second)
 	public String toString()
 	{
 		//Output handle
-		String output = "Handle: " + getHandle() + " ";
+		String output = "Handle: " + getHandle() + "  |  Department: " + "Need to implement" + "  |   Shift: " +myShift;
+						
+		output+= "\n";
 		
 		//Output Department Preferences
 		output += "Department Preferences: ";
-		for (int i=0;i<depPref.length-1;i++)
+		for (int i=0;i<depPref.length;i++)
 		{
 			output+= depPref[i];
-			if (i+1<depPref.length-1)
+			if (i+1<depPref.length)
 				{output+=",";}
 		}
-		output += " ";
+		output += "\n";
+		
+		//Output Time Preferences
+		output += "Shift Preferences: ";
+		for (int i=0;i<timePref.length;i++)
+		{
+			output+= timePref[i];
+			if (i+1<timePref.length)
+				{output+=",";}
+		}
+		output += "\n";
 		
 		//Output 
 		return output;
@@ -54,14 +82,15 @@ public class Enforcer {
 	private String[] depConvert(String depString) throws Exception
 	{
 		String depConvert[] =new String[depPrefNum];
-		StringTokenizer myTokenizer = new StringTokenizer(depString);
-		if(myTokenizer.countTokens()==depPrefNum){
+		StringTokenizer myTokenizer = new StringTokenizer(depString, ",");
+		
+		if(myTokenizer.countTokens()!=depPrefNum){
 			throw new Exception("Departments in the string does not match " +
 					"Department Prefr Number of " + depPrefNum);
 		}
 		else
 		{
-			for (int i= 0; i<depPrefNum-1; i++)
+			for (int i= 0; i<depPrefNum; i++)
 			{
 				depConvert[i]=myTokenizer.nextToken();
 			}
@@ -70,6 +99,7 @@ public class Enforcer {
 		return depConvert;
 	}
 	
+	//Getters and Setters
 	public String[] getDepPref() {
 		return depPref;
 	}
@@ -94,6 +124,14 @@ public class Enforcer {
 	public Department getDepartment()
 	{
 		return myDepartment;
+	}
+
+	public int[] getTimePref() {
+		return timePref;
+	}
+
+	public void setTimePref(int[] timePref) {
+		this.timePref = timePref;
 	}
 
 }
