@@ -6,20 +6,22 @@ import java.util.StringTokenizer;
  * Handle - Done
  * Time Preferences - Need to figure out better way of setting/getting data since this less complex
  * Department Preferences - Done
- * Current Department
- * Current Shift
- * Happiness Level based upon Department/ Time
- * Output method
+ * Current Department - done
+ * Current Shift - done
+ * Specialized Constructor
+ * Happiness Level based upon Department/ Time - calculation needed
+ * Output method - on hold
  */
 public class Enforcer extends Object {
 
+	private static final int shifts = 3;
+	private static final int depPrefNum = 5;
+	
 	private String handle;
 	private String[] depPref;
 	private int[] timePref;
-	private Department myDepartment;
-	private int depPrefNum = 5;
-	private int shifts = 3;
-	public int myShift = 0;
+	private String myDepartment;
+	private int myShift = 0;
 	
 	public Enforcer()
 	{
@@ -99,6 +101,47 @@ public class Enforcer extends Object {
 		return depConvert;
 	}
 	
+
+	/*
+	 * I was considering doing the requirements of data saving in each object but probably should do it in the main controller
+	 * 
+	//Output enforcer data in a useful way for file saving
+	//Delimit with ",".  Use string tokenizer to import later
+	//Consider adding in labels for the future to make data loading/saving easier
+	public String output ()
+	{
+		//Handle, Department Preferences, Shift Preferences, CurrentDepartment, CurrentShift
+		
+		//Handle
+		String output = getHandle() + ",";
+		
+		//Department Preferences
+		for (int i=0;i<depPref.length;i++)
+		{
+			output+= depPref[i];
+			if (i+1<depPref.length)
+				{output+=",";}
+		}
+				
+		//Shift(Time) Preferences
+		for (int i=0;i<timePref.length;i++)
+		{
+			output+= timePref[i];
+			if (i+1<timePref.length)
+				{output+=",";}
+		}
+		output += "\n";
+		
+		//Output 
+		return output;
+	}
+	*/
+	
+	public int calculate()
+	{
+		return 0;
+	}
+	
 	//Getters and Setters
 	public String[] getDepPref() {
 		return depPref;
@@ -116,16 +159,35 @@ public class Enforcer extends Object {
 		this.handle = handle;
 	}
 	
-	public void setDepartment (Department newDep)
+	public void setDepartment (String newDep)
 	{
 		this.myDepartment = newDep;
 	}
 	
-	public Department getDepartment()
+	public String getDepartment()
 	{
 		return myDepartment;
 	}
+	
+	public void setShift (int newShift)
+	{
+			try {
+				if (newShift >3 || newShift<0)
+				{
+					throw new Exception("New Shift is out of bounds: " + newShift);
+				}
+				this.myShift= newShift;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
+	}
+	
+	public int getShift()
+	{
+		return myShift;
+	}
 	public int[] getTimePref() {
 		return timePref;
 	}
