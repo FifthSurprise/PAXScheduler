@@ -1,3 +1,4 @@
+//Controller that just tests whether Enforcer/Department objects work the way they should
 
 public class testController {
 
@@ -7,9 +8,10 @@ public class testController {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		System.out.println ("Begin test of application:\n");
+		System.out.println ("Begin test of enforcer object:\n");
 		Enforcer myEnforcer = new Enforcer();
-		myEnforcer.setDepartment(new Department("Line Entertainment"));
+		//myEnforcer.setDepartment(new Department("Line Entertainment"));
+		myEnforcer.setDepartment("Line Entertainment");
 		myEnforcer.addDepPref("Test1,Test2,Test3,Test4,Test5");
 		
 		int[]myArray = new int[3];
@@ -21,6 +23,15 @@ public class testController {
 		myEnforcer.setHandle("FifthSurprise");
 		
 		System.out.println (myEnforcer.toString());
+		
+		System.out.println("Begin test of department object:\n");
+		Department myDepartment = new Department("Line Entertainment");
+		
+		myDepartment.addEnforcer(myEnforcer, 3);
+		System.out.println(myDepartment.toString());
+		
+		myDepartment.remove("FifthSurprise");
+		System.out.println(myDepartment.toString());
 	}
 
 }
