@@ -83,22 +83,13 @@ public class Enforcer extends Object {
 	*/
 	private String[] depConvert(String depString) throws Exception
 	{
-		String depConvert[] =new String[depPrefNum];
-		StringTokenizer myTokenizer = new StringTokenizer(depString, ",");
+		String[] myString = depString.split(",");
 		
-		if(myTokenizer.countTokens()!=depPrefNum){
+		if(myString.length !=depPrefNum){
 			throw new Exception("Departments in the string does not match " +
 					"Department Prefr Number of " + depPrefNum);
 		}
-		else
-		{
-			for (int i= 0; i<depPrefNum; i++)
-			{
-				depConvert[i]=myTokenizer.nextToken();
-			}
-		}
-		
-		return depConvert;
+		return myString;
 	}
 	
 
