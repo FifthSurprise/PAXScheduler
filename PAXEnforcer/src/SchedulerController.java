@@ -1,3 +1,6 @@
+import java.io.*;
+
+
 /*
  * Overall controller to handle managing all departments (and subsequently all enforcers)
  * 
@@ -12,6 +15,76 @@ public class SchedulerController {
 	public SchedulerController()
 	{
 		
+	}
+	//Load all departments and enforcers
+	public void load() throws IOException
+	{
+
+        BufferedReader inputStream = null;
+
+		//Load Departments
+		try {
+			inputStream = new BufferedReader(new FileReader("DepartmentData.txt"));
+			String iString;
+			
+			while ((iString=inputStream.readLine())!=null)
+			{
+				if (iString =="Department")
+				{
+					parseDepartment(inputStream);
+				}
+				else if (iString == "Enforcer") 
+				{
+					
+				}
+				
+				else
+				{
+					//Unable to parse text
+					try {
+						throw new Exception ("Unable to parse text! " + iString);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			
+				}	
+				
+			}
+		}
+		finally
+		{
+			//close the input stream
+			if (inputStream != null)
+			{
+				inputStream.close();
+			}
+		}
+		//Load spare enforcers (possibly in same file?)
+	}
+
+	//parse new department from file
+	public void parseDepartment(BufferedReader inputStream) throws IOException
+	{
+		System.out.println(inputStream.readLine());
+	}
+	
+	//Save all data
+	public void save()
+	{
+		//Save all departments and their enforcers
+		
+		//
+	}	
+	public static void main(String[] args) {
+		SchedulerController mySchedulerController = new SchedulerController();
+		
+		try {
+			mySchedulerController.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
