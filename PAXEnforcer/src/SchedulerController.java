@@ -24,18 +24,18 @@ public class SchedulerController {
 
 		//Load Departments
 		try {
-			inputStream = new BufferedReader(new FileReader("DepartmentData.txt"));
+			inputStream = new BufferedReader(new FileReader("Resources/DepartmentData.txt"));
 			String iString;
 			
 			while ((iString=inputStream.readLine())!=null)
-			{
-				if (iString =="Department")
+			{					
+				if (iString.equals("Department"))
 				{
 					parseDepartment(inputStream);
 				}
-				else if (iString == "Enforcer") 
+				else if (iString.equals("Enforcer")) 
 				{
-					
+					parseEnforcer(inputStream);
 				}
 				
 				else
@@ -67,6 +67,12 @@ public class SchedulerController {
 	public void parseDepartment(BufferedReader inputStream) throws IOException
 	{
 		System.out.println(inputStream.readLine());
+	}
+
+	//parse a new Enforcer from file
+	public void parseEnforcer(BufferedReader inputStream)throws IOException
+	{
+		
 	}
 	
 	//Save all data
