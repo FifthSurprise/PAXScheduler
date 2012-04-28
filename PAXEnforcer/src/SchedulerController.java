@@ -4,12 +4,12 @@
  * Will possibly eventually control gui but definitely needs to contorl File I/O
  */
 
-public class schedulerController {
+public class SchedulerController {
 
 	/**
 	 * @param args
 	 */
-	public schedulerController()
+	public SchedulerController()
 	{
 		
 	}
