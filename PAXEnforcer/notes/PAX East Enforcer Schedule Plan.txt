@@ -1,7 +1,7 @@
 PAX East Enforcer Schedule Plan
 
-1.)  Set up classes:  Enforcer, Team - 90% done
-2.)  Controller Class:  Input/storing of enforcers + teams
+1.)  Set up classes:  Enforcer, Team - done
+2.)  Controller Class:  Input/storing of enforcers + teams - 40%
 3.)  Output of Enforcers + Teams
 4.)  GUI that displays Enforcers + Teams
 5.)  Drag & Drop of Enforcers
@@ -16,5 +16,4 @@ spam one department).
 
 Need to consider possibility of removing an enforcer from a department before adding.
 
-How to handle searching for enforcers in an arraylist to remove?  Probably have to iterate through the entire ArrayList
-via index and compare using String data (because each Enforcer has to be unique by handle).
+Currently, the order of shifts is messed up and needs to remain consist from enforcer --> department --> scheduler controller

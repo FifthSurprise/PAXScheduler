@@ -32,7 +32,6 @@ public class Department extends Object{
 	public void addEnforcer(Enforcer addedEnforcer, int shift)
 	{
 		//Throw an exception if adding an enforcer who already exists
-		
 			try {
 				if (myTeamArray[shift-1].contains(addedEnforcer)){			
 					throw new Exception("Enforcer exists in this department already");

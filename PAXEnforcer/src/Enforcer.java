@@ -19,35 +19,25 @@ public class Enforcer extends Object {
 	
 	private String handle;
 	private String[] depPref;
-	private int[] timePref;
+	private int[] timePref = new int[shifts];
 	private String myDepartment;
-	private int myShift = 0;
+	private int myShift = -1;
 	
 	public Enforcer()
 	{
-		setTimePref(new int[shifts]);
+		
 		setDepPref(new String[depPrefNum]);
 		setHandle ("Enforcer");
 		myDepartment = null;
 	}
 	
-	//add a list of departments based upon a string
-	public void addDepPref(String depPrefString)
-	{
-		try {
-			this.depPref = depConvert(depPrefString);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
+
 	//ToString output of Enforcer Data.  Currently paragraph style for testing/readability...
 	//Will need to later convert into outputfriendly format or make a new method for output friendly format (probably second)
 	public String toString()
 	{
 		//Output handle
-		String output = "Handle: " + getHandle() + "  |  Department: " + "Need to implement" + "  |   Shift: " +myShift;
+		String output = "Handle: " + getHandle() + "  |  Department: " + myDepartment + "  |   Shift: " +myShift;
 						
 		output+= "\n";
 		
@@ -92,42 +82,7 @@ public class Enforcer extends Object {
 		return myString;
 	}
 	
-
-	/*
-	 * I was considering doing the requirements of data saving in each object but probably should do it in the main controller
-	 * 
-	//Output enforcer data in a useful way for file saving
-	//Delimit with ",".  Use string tokenizer to import later
-	//Consider adding in labels for the future to make data loading/saving easier
-	public String output ()
-	{
-		//Handle, Department Preferences, Shift Preferences, CurrentDepartment, CurrentShift
-		
-		//Handle
-		String output = getHandle() + ",";
-		
-		//Department Preferences
-		for (int i=0;i<depPref.length;i++)
-		{
-			output+= depPref[i];
-			if (i+1<depPref.length)
-				{output+=",";}
-		}
-				
-		//Shift(Time) Preferences
-		for (int i=0;i<timePref.length;i++)
-		{
-			output+= timePref[i];
-			if (i+1<timePref.length)
-				{output+=",";}
-		}
-		output += "\n";
-		
-		//Output 
-		return output;
-	}
-	*/
-	
+	//Calculate happiness levels
 	public int calculate()
 	{
 		return 0;
@@ -140,6 +95,17 @@ public class Enforcer extends Object {
 
 	public void setDepPref(String[] depPref) {
 		this.depPref = depPref;
+	}
+
+	//add a list of departments based upon a string
+	public void setDepPref(String depPrefString)
+	{
+		try {
+			this.depPref = depConvert(depPrefString);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String getHandle() {
@@ -162,17 +128,20 @@ public class Enforcer extends Object {
 	
 	public void setShift (int newShift)
 	{
-			try {
-				if (newShift >3 || newShift<0)
-				{
-					throw new Exception("New Shift is out of bounds: " + newShift);
-				}
-				this.myShift= newShift;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			if (newShift >3)
+			{
+				throw new Exception("New Shift is out of bounds: " + newShift);
 			}
-
+			this.myShift= newShift;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void setShift(String str)
+	{
+		setShift(Integer.parseInt(str));
 	}
 	
 	public int getShift()
@@ -183,8 +152,15 @@ public class Enforcer extends Object {
 		return timePref;
 	}
 
-	public void setTimePref(int[] timePref) {
-		this.timePref = timePref;
+	public void setTimePref(String str)
+	{
+		String remComma = str.replace(",","");
+		for (int i=0;i<remComma.length()-1;i++)
+		{
+			timePref[i]=Character.getNumericValue(remComma.charAt(i));
+		}
 	}
-
+	
+	
 }
+

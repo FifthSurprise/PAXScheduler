@@ -12,14 +12,10 @@ public class testController {
 		Enforcer myEnforcer = new Enforcer();
 		//myEnforcer.setDepartment(new Department("Line Entertainment"));
 		myEnforcer.setDepartment("Line Entertainment");
-		myEnforcer.addDepPref("Test1,Test2,Test3,Test4,Test5");
+		myEnforcer.setDepPref("Test1,Test2,Test3,Test4,Test5");
 		
-		int[]myArray = new int[3];
-		myArray[0]=1;
-		myArray[1]=2;
-		myArray[2]=3;
-		
-		myEnforcer.setTimePref(myArray);
+	
+		myEnforcer.setTimePref("123");
 		myEnforcer.setHandle("FifthSurprise");
 		
 		System.out.println (myEnforcer.toString());
