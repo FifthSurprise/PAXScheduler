@@ -17,3 +17,4 @@ spam one department).
 Need to consider possibility of removing an enforcer from a department before adding.
 
 Currently, the order of shifts is messed up and needs to remain consist from enforcer --> department --> scheduler controller
+*Fixed- turns out tostring was just given wrong output

@@ -103,12 +103,12 @@ public class Department extends Object{
 		//Output each enforcer in each shift's arraylist
 		for (int i=0; i<myTeamArray.length;i++)
 		{
-			output+= "Shift: " + i + "\n";
+			output+= "Shift: " + (i+1) + "\n";
 			for (int n=0;n<myTeamArray[i].size();n++)
 			{
 				output+=myTeamArray[i].get(n).toString();	
 			}
-			
+			output+="\n";
 		}
 		
 		return output;

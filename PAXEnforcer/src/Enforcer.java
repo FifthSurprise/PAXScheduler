@@ -21,7 +21,7 @@ public class Enforcer extends Object {
 	private String[] depPref;
 	private int[] timePref = new int[shifts];
 	private String myDepartment;
-	private int myShift = -1;
+	private int myShift = 0;
 	
 	public Enforcer()
 	{
@@ -37,9 +37,8 @@ public class Enforcer extends Object {
 	public String toString()
 	{
 		//Output handle
-		String output = "Handle: " + getHandle() + "  |  Department: " + myDepartment + "  |   Shift: " +myShift;
-						
-		output+= "\n";
+		String output = "\tHandle: " + getHandle() + "  |  Department: " + myDepartment + "  |   Shift: " +myShift;				
+		output+= "\n\t\t";
 		
 		//Output Department Preferences
 		output += "Department Preferences: ";
@@ -49,13 +48,13 @@ public class Enforcer extends Object {
 			if (i+1<depPref.length)
 				{output+=",";}
 		}
-		output += "\n";
+		output += "\n\t\t";
 		
 		//Output Time Preferences
 		output += "Shift Preferences: ";
 		for (int i=0;i<timePref.length;i++)
 		{
-			output+= timePref[i];
+			output+= "Shift "+(i+1)+":"+timePref[i];
 			if (i+1<timePref.length)
 				{output+=",";}
 		}
