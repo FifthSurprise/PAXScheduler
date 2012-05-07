@@ -25,13 +25,11 @@ public class Enforcer extends Object {
 	
 	public Enforcer()
 	{
-		
 		setDepPref(new String[depPrefNum]);
 		setHandle ("Enforcer");
 		myDepartment = null;
 	}
 	
-
 	//ToString output of Enforcer Data.  Currently paragraph style for testing/readability...
 	//Will need to later convert into outputfriendly format or make a new method for output friendly format (probably second)
 	public String toString()

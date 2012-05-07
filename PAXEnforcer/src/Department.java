@@ -54,7 +54,6 @@ public class Department extends Object{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
-
 	}
 	
 	//Department contains an enforcer based upon handle name
@@ -89,8 +88,8 @@ public class Department extends Object{
 					return myTeamArray[i].remove(n);
 				}
 			}
-			
 		}
+		//failed to find the Enforcer
 		return null;
 	}
 	

@@ -1,7 +1,11 @@
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 /*
  * Overall controller to handle managing all departments (and subsequently all enforcers)
@@ -9,8 +13,17 @@ import java.util.Iterator;
  * Will possibly eventually control gui but definitely needs to control File I/O
  */
 
-public class SchedulerController {
+public class SchedulerController extends JPanel implements ActionListener{
 
+	//GUI Elements
+	private static final String FRAME_LABEL= "Enforcer Scheduler";
+	JFrame frame = new JFrame (FRAME_LABEL);
+	JPanel myPanel = new JPanel();
+	JLabel emptyLabel;
+	
+	protected JButton b1;
+	private int blah = 1;
+	//Schedule Components
 	public ArrayList<Department> departmentList;
 	public ArrayList<Enforcer> unassignedE;
 	
@@ -21,16 +34,59 @@ public class SchedulerController {
 	{
 		this.departmentList = new ArrayList<Department>();
 		this.unassignedE = new ArrayList<Enforcer>();
+		
+		setGUI();
+	}
+	
+    public void actionPerformed(ActionEvent e) {
+    	if (e.getActionCommand().equals("Update"))
+    	{
+    		update();
+    	}
+    }
+    
+	private void setGUI()
+	{
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.getContentPane().add(myPanel,BorderLayout.CENTER);
+		
+		emptyLabel = new JLabel(""+blah);
+		emptyLabel.setPreferredSize(new Dimension(175,100));
+		
+		myPanel.setLayout(new BorderLayout());
+		myPanel.add(emptyLabel,BorderLayout.CENTER);
+		
+		b1 = new JButton("MyButton");
+		b1.setActionCommand("Update");
+		b1.addActionListener(this);
+		myPanel.add(b1,BorderLayout.SOUTH);
+		
+		frame.pack();
+		frame.setVisible(true);
+		
+	}
+	
+	private void update()
+	{
+		blah++;
+		myPanel.remove(emptyLabel);
+		emptyLabel = new JLabel(""+blah);
+		myPanel.add(emptyLabel, BorderLayout.CENTER);
+		myPanel.revalidate();
+		System.out.println (blah);
 	}
 
 	//Load all departments and enforcers
-	public void load() throws IOException
+	public void load(String path) throws IOException
 	{
+
         BufferedReader inputStream = null;
 
 		//Load Departments
 		try {
-			inputStream = new BufferedReader(new FileReader("Resources/DepartmentData.txt"));
+			inputStream = new BufferedReader(new FileReader(path));
 			String iString;
 			
 			while ((iString=inputStream.readLine())!=null)
@@ -67,7 +123,6 @@ public class SchedulerController {
 	{
 		String iString;
 		//Parse the department
-		
 		iString=inputStream.readLine();
 		
 		//Ensure that the department hasn't been added already
@@ -84,10 +139,9 @@ public class SchedulerController {
 		//Create a new department from the file
 		Department parseDep = new Department(iString);
 		
-		//add any enforcers if any (stop when hit a break line)
+		//add Department's enforcers if any (stop when hit a break line)
 		while (!iString.equals("break;"))
 		{
-
 			iString = inputStream.readLine();
 			if (iString.equals ("Enforcer:"))
 			{
@@ -149,27 +203,21 @@ public class SchedulerController {
 		{
 			output += (departmentList.get(i)).toString();
 		}
-		
-		
-		
 		return output;
 	}
 	
-	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) 
+	{
 		//Create the SchedulerController
 		SchedulerController mySchedulerController = new SchedulerController();
 		
 		//Test loading
 		try {
-			mySchedulerController.load();
+			mySchedulerController.load("Resources/DepartmentData.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 		System.out.println(mySchedulerController.toString());
 	}
-
 }
