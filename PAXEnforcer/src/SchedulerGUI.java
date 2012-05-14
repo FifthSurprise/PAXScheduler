@@ -4,15 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 
 public class SchedulerGUI extends JPanel implements ListSelectionListener,ActionListener{
 
@@ -25,6 +19,9 @@ public class SchedulerGUI extends JPanel implements ListSelectionListener,Action
 	
 	JList departmentJList;
 	JScrollPane departmentScrollPane;
+	
+	//button for removing department
+	JButton deleteDepButton;
 	
 	public SchedulerGUI()
 	{
@@ -55,11 +52,24 @@ public class SchedulerGUI extends JPanel implements ListSelectionListener,Action
 			frame.getContentPane().add(myPanel,BorderLayout.CENTER);
 			
 			myPanel.setLayout(new BorderLayout());
-			updateElements();
 			
 			//add the scrollPane
+			departmentJList =new JList((mySchedulerController.getDepartmentList()).toArray()); 
+			departmentJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			departmentJList.addListSelectionListener((ListSelectionListener) this);
+			departmentJList.setSelectedIndex(0);
+			
+			departmentScrollPane = new JScrollPane(departmentJList,
+					JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+			departmentScrollPane.setPreferredSize(new Dimension(300,300));
+			
 			myPanel.add(departmentScrollPane,BorderLayout.CENTER);
-			frame.add(myPanel);
+			
+			//add the delete button
+			deleteDepButton = new JButton("Delete Department");
+			deleteDepButton.setActionCommand("delete department");
+			myPanel.add(deleteDepButton,BorderLayout.SOUTH);
+			deleteDepButton.addActionListener(this);
 			
 			frame.pack();
 			frame.setVisible(true);
@@ -67,17 +77,28 @@ public class SchedulerGUI extends JPanel implements ListSelectionListener,Action
 	
 	private void updateElements()
 	{
-		departmentJList =new JList((mySchedulerController.getDepartmentList()).toArray()); 
-		departmentJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		departmentJList.addListSelectionListener((ListSelectionListener) this);
+		//Update the departmentJList from mySchedulerController.  This will update the scrollpane
+		departmentJList.setListData((mySchedulerController.getDepartmentList()).toArray());
+		//reset the selected index
+		departmentJList.setSelectedIndex(0);
 		
-		departmentScrollPane = new JScrollPane(departmentJList,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		departmentScrollPane.setPreferredSize(new Dimension(300,300));	
+	}
+	
+	//Delete the currently selected department
+	private void deleteDepartment()
+	{
+		System.out.println ("Deleting " + departmentJList.getSelectedValue());
+		mySchedulerController.deleteDepartment(departmentJList.getSelectedValue().toString());
+		
+		updateElements();
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
+	public void actionPerformed(ActionEvent e) {
+		if ("delete department".equals(e.getActionCommand()))
+		{
+			deleteDepartment();
+		}
 		
 	}
 

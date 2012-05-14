@@ -14,10 +14,6 @@ import javax.swing.event.ListSelectionEvent;
 
 public class SchedulerController{
 
-	//GUI Elements
-	private JList departmentJList;
-	private JScrollPane departmentScrollPane;
-	
 	//Schedule Components
 	public ArrayList<Department> departmentList;
 	public ArrayList<Enforcer> unassignedE;
@@ -43,7 +39,7 @@ public class SchedulerController{
 		return departmentList;
 	}
 
-	
+/*	
 	//Activates when acting on a list
 	public void valueChanged(ListSelectionEvent e) {
 		if (e.getValueIsAdjusting() == false)
@@ -54,7 +50,7 @@ public class SchedulerController{
 				System.out.println (departmentJList.getSelectedValue());
 			}
 		}
-	}
+	}*/
 
 	//Load all departments and enforcers
 	public void load(String path) throws IOException
@@ -172,6 +168,19 @@ public class SchedulerController{
 		return false;
 	}
 	
+	//delete a department from the list.  Implement removing all of that department's enforcers later.
+	public void deleteDepartment(String dep)
+	{
+		for (int i=0;i<departmentList.size();i++)
+		{
+			if (departmentList.get(i).departmentName.equals(dep))
+			{
+				departmentList.remove(i);
+			}
+		}
+	}
+	
+	//ToString of all department's data
 	public String toString()
 	{
 		String output ="Department List: \n";

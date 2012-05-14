@@ -6,3 +6,21 @@ break;
 Department:
 Line Management
 break;
+Department:
+Console Freeplay
+break;
+Department:
+PC Freeplay
+break;
+Department:
+PC Security
+break;
+Department:
+Expo Hall
+break;
+Department:
+Information Center
+break;
+Department:
+Spareboard
+break;
