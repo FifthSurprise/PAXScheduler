@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 //Specific department at PAX (ex. Line Entertainment)
 
@@ -93,8 +96,13 @@ public class Department extends Object{
 		return null;
 	}
 	
-	//ToString output of Department Data
 	public String toString()
+	{
+		return departmentName;
+	}
+	
+	//Data output of Department Data
+	public String getData()
 	{
 		String output = "Department Name: ";
 		output += departmentName + "\n";
@@ -105,11 +113,12 @@ public class Department extends Object{
 			output+= "Shift: " + (i+1) + "\n";
 			for (int n=0;n<myTeamArray[i].size();n++)
 			{
-				output+=myTeamArray[i].get(n).toString();	
+				output+=myTeamArray[i].get(n).getData();	
 			}
 			output+="\n";
 		}
 		
 		return output;
 	}
+	
 }

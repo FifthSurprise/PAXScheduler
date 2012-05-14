@@ -18,16 +18,16 @@ public class testController {
 		myEnforcer.setTimePref("123");
 		myEnforcer.setHandle("FifthSurprise");
 		
-		System.out.println (myEnforcer.toString());
+		System.out.println (myEnforcer.getData());
 		
 		System.out.println("Begin test of department object:\n");
 		Department myDepartment = new Department("Line Entertainment");
 		
 		myDepartment.addEnforcer(myEnforcer, 3);
-		System.out.println(myDepartment.toString());
+		System.out.println(myDepartment.getData());
 		
 		myDepartment.remove("FifthSurprise");
-		System.out.println(myDepartment.toString());
+		System.out.println(myDepartment.getData());
 	}
 
 }

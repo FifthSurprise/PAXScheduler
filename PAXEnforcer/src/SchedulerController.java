@@ -1,11 +1,10 @@
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.event.ListSelectionEvent;
+
 
 /*
  * Overall controller to handle managing all departments (and subsequently all enforcers)
@@ -13,19 +12,16 @@ import java.awt.event.*;
  * Will possibly eventually control gui but definitely needs to control File I/O
  */
 
-public class SchedulerController extends JPanel implements ActionListener{
+public class SchedulerController{
 
 	//GUI Elements
-	private static final String FRAME_LABEL= "Enforcer Scheduler";
-	JFrame frame = new JFrame (FRAME_LABEL);
-	JPanel myPanel = new JPanel();
-	JLabel emptyLabel;
+	private JList departmentJList;
+	private JScrollPane departmentScrollPane;
 	
-	protected JButton b1;
-	private int blah = 1;
 	//Schedule Components
 	public ArrayList<Department> departmentList;
 	public ArrayList<Enforcer> unassignedE;
+
 	
 	/**
 	 * @param args
@@ -34,61 +30,40 @@ public class SchedulerController extends JPanel implements ActionListener{
 	{
 		this.departmentList = new ArrayList<Department>();
 		this.unassignedE = new ArrayList<Enforcer>();
-		
-		setGUI();
 	}
-	
-    public void actionPerformed(ActionEvent e) {
-    	if (e.getActionCommand().equals("Update"))
-    	{
-    		update();
-    	}
-    }
+
     
-	private void setGUI()
-	{
-		
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame.getContentPane().add(myPanel,BorderLayout.CENTER);
-		
-		emptyLabel = new JLabel(""+blah);
-		emptyLabel.setPreferredSize(new Dimension(175,100));
-		
-		myPanel.setLayout(new BorderLayout());
-		myPanel.add(emptyLabel,BorderLayout.CENTER);
-		
-		b1 = new JButton("MyButton");
-		b1.setActionCommand("Update");
-		b1.addActionListener(this);
-		myPanel.add(b1,BorderLayout.SOUTH);
-		
-		frame.pack();
-		frame.setVisible(true);
-		
-	}
+    public void addEnforcer(String newName)
+    {
+    	departmentList.add(new Department(newName));
+    }
 	
-	private void update()
+	public ArrayList<Department> getDepartmentList()
 	{
-		blah++;
-		myPanel.remove(emptyLabel);
-		emptyLabel = new JLabel(""+blah);
-		myPanel.add(emptyLabel, BorderLayout.CENTER);
-		myPanel.revalidate();
-		System.out.println (blah);
+		return departmentList;
+	}
+
+	
+	//Activates when acting on a list
+	public void valueChanged(ListSelectionEvent e) {
+		if (e.getValueIsAdjusting() == false)
+		{
+			//Accessing departmentGUI
+			if (e.getSource().equals(departmentJList))
+			{
+				System.out.println (departmentJList.getSelectedValue());
+			}
+		}
 	}
 
 	//Load all departments and enforcers
 	public void load(String path) throws IOException
 	{
-
         BufferedReader inputStream = null;
-
 		//Load Departments
 		try {
 			inputStream = new BufferedReader(new FileReader(path));
 			String iString;
-			
 			while ((iString=inputStream.readLine())!=null)
 			{					
 				if (iString.equals("Department:"))
@@ -184,6 +159,7 @@ public class SchedulerController extends JPanel implements ActionListener{
 
 	}	
 	
+	//Check to see if a department name already exists before attempting to add it
 	public boolean containDepartment (String department)
 	{
 		for (int i=0;i<departmentList.size();i++)
@@ -201,23 +177,8 @@ public class SchedulerController extends JPanel implements ActionListener{
 		String output ="Department List: \n";
 		for (int i=0; i<departmentList.size();i++)
 		{
-			output += (departmentList.get(i)).toString();
+			output += (departmentList.get(i)).getData();
 		}
 		return output;
-	}
-	
-	public static void main(String[] args) 
-	{
-		//Create the SchedulerController
-		SchedulerController mySchedulerController = new SchedulerController();
-		
-		//Test loading
-		try {
-			mySchedulerController.load("Resources/DepartmentData.txt");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		System.out.println(mySchedulerController.toString());
 	}
 }

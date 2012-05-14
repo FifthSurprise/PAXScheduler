@@ -30,9 +30,16 @@ public class Enforcer extends Object {
 		myDepartment = null;
 	}
 	
-	//ToString output of Enforcer Data.  Currently paragraph style for testing/readability...
-	//Will need to later convert into outputfriendly format or make a new method for output friendly format (probably second)
+	//ToString output of Enforcer Data.  
 	public String toString()
+	{
+		return getHandle();
+	}
+	
+	
+	//Data of the objectCurrently paragraph style for testing/readability...
+	//Will need to later convert into outputfriendly format or make a new method for output friendly format (probably second)
+	public String getData()
 	{
 		//Output handle
 		String output = "\tHandle: " + getHandle() + "  |  Department: " + myDepartment + "  |   Shift: " +myShift;				
