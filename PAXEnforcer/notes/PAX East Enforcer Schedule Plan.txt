@@ -17,4 +17,16 @@ spam one department).
 Need to consider possibility of removing an enforcer from a department before adding.
 
 Currently, the order of shifts is messed up and needs to remain consist from enforcer --> department --> scheduler controller
-*Fixed- turns out tostring was just given wrong output
+*Fixed- turns out tostring was just given wrong output.
+
+Probably should refactor program to use Map instead of ArrayLists.  This is because each Department and Enforcer should be unique anyway.
+The key will always be the name while the value will be the object itself.
+
+GUI:
+Multiple JList of data in JScrollPane.  JLabel for looking at enforcer data.
+
+Turn Map into JList through getting a Set of the values and turning that into toArray. (Alphabetize first).
+
+That way, updates to the departmentlist can be updated easily by pulling things in and out via the key (departmentname/enforcername).
+
+Probably need to build a gui on top of the actual scheduler controller.
