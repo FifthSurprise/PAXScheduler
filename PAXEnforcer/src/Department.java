@@ -3,6 +3,8 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 //Specific department at PAX (ex. Line Entertainment)
 
 /*
@@ -96,6 +98,7 @@ public class Department extends Object{
 		return null;
 	}
 	
+	//Returns the departmentName
 	public String toString()
 	{
 		return departmentName;
@@ -120,5 +123,4 @@ public class Department extends Object{
 		
 		return output;
 	}
-	
 }

@@ -39,19 +39,6 @@ public class SchedulerController{
 		return departmentList;
 	}
 
-/*	
-	//Activates when acting on a list
-	public void valueChanged(ListSelectionEvent e) {
-		if (e.getValueIsAdjusting() == false)
-		{
-			//Accessing departmentGUI
-			if (e.getSource().equals(departmentJList))
-			{
-				System.out.println (departmentJList.getSelectedValue());
-			}
-		}
-	}*/
-
 	//Load all departments and enforcers
 	public void load(String path) throws IOException
 	{
@@ -111,6 +98,7 @@ public class SchedulerController{
 		Department parseDep = new Department(iString);
 		
 		//add Department's enforcers if any (stop when hit a break line)
+		
 		while (!iString.equals("break;"))
 		{
 			iString = inputStream.readLine();
@@ -124,7 +112,12 @@ public class SchedulerController{
 		departmentList.add(parseDep);
 	}
 
-	//parse a new Enforcer from file
+	/*parse a new Enforcer from file
+	 * Format:
+	 * Handle;Department;myShift;DepartmentPreferences[5];TimePreferences
+	 * Ex. S7arbuck;LineEntertainment;1;Test1,Test2,Test3,Test4,Test5;1,2,3
+	*/
+	
 	public Enforcer parseEnforcer(String parseString)throws IOException
 	{
 		String[] enfStrArray = parseString.split(";");
@@ -166,6 +159,26 @@ public class SchedulerController{
 			}
 		}
 		return false;
+	}
+	
+	//Get a specific department from the list
+	public Department getDepartment(String department)
+	{
+		for (int i=0;i<departmentList.size();i++)
+		{
+			if (departmentList.get(i).departmentName.equals(department))
+			{
+				return departmentList.get(i);
+			}
+		}
+		
+		try {
+			throw new Exception ("Department does not exist ");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	//delete a department from the list.  Implement removing all of that department's enforcers later.
